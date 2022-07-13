@@ -1,0 +1,27 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John",
+      "email": "jhon@gmail.com"
+    },
+    {
+      "id": 2,
+      "name": "Jane",
+      "email": "jane@gmail.com"
+    },
+    {
+      "id": 3
+    },
+    {
+      "name": " abc",
+      "email": "unishoprtech@gmail.com",
+      "id": 4
+    },
+    {
+      "name": " bdsada",
+      "email": "admin1@gmail.com",
+      "id": 5
+    }
+  ]
+}
