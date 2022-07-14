@@ -1,5 +1,5 @@
 import * as types from '../../redux/type';
-import { takeEvery, put, call } from 'redux-saga/effects';
+import { takeEvery, put, call, takeLatest, take, delay } from 'redux-saga/effects';
 import { userSuccess, userError, createUserSuccess, createUserError, deleteUserSuccess, deleteUserError } from '../../redux/action';
 import { loadUserApi } from '../request/api';
 import { AddUserApi, DeleteUserApi } from '../request/api';
@@ -24,12 +24,18 @@ export function* addUserSaga({ payload }) {
     }
 }
 
-export function* deleteUserSaga({ payload }) {
+export function* deleteUserSaga(id) {
+    console.log("p", id);
     try {
-        const response = yield call(DeleteUserApi, payload);
-        yield put(deleteUserSuccess(response.data));
+        const response = yield call(DeleteUserApi, id);
+        console.log(response);
+        if (response.status === 200) {
+            yield delay(200);
+            yield put(deleteUserSuccess(id));
+        }
 
     } catch (error) {
+        console.log("e", error);
         yield put(deleteUserError(error));
     }
 }
@@ -39,10 +45,13 @@ export function* onLoadUser() {
 }
 
 export function* addUser() {
-    yield takeEvery(types.CreateUserStart, addUserSaga)
+    yield takeLatest(types.CreateUserStart, addUserSaga)
 }
 
 export function* deleteUser() {
-    yield takeEvery(types.DeleteUserStart, deleteUserSaga)
+    while (true) {
+        const { payload: id } = yield take(types.DeleteUserStart);
+        yield call(deleteUserSaga, id)
 
+    }
 }

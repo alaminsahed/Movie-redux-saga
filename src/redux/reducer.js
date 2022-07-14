@@ -26,7 +26,7 @@ const userReducer = (state = initialState, action) => {
                 loading: false,
             }
         case types.DeleteUserSuccess:
-            console.log(action.payload);
+            console.log("r", action.payload);
             return {
                 ...state,
                 users: state.users.filter(user => user.id !== action.payload),

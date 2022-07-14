@@ -11,6 +11,8 @@ export const AddUserApi = async (user) => {
 }
 
 export const DeleteUserApi = async (id) => {
-    const response = await axios.delete("http://localhost:3004/users", id);
+    console.log("f", id);
+    const response = await axios.delete(`http://localhost:3004/users/${id}`);
+    console.log("response", response);
     return response;
 }
