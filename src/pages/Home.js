@@ -67,7 +67,7 @@ const Home = () => {
                                             </MDBTooltip>
                                         </Link>
                                         {" "}
-                                        <Link to={`/AddEditUser/${item.id}`}>
+                                        <Link to={`/userInfo/${item.id}`}>
                                             <MDBTooltip title="View" tag="a">
                                                 <MDBIcon
                                                     fas
