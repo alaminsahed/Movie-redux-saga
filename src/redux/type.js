@@ -10,3 +10,7 @@ export const CreateUserError = "createUserError";
 export const DeleteUserStart = "deleteUserStart";
 export const DeleteUserSuccess = "deleteUserSuccess";
 export const DeleteUserError = "deleteUserError";
+
+export const UpdateUserStart = "updateUserStart";
+export const UpdateUserSuccess = "updateUserSuccess";
+export const UpdateUserError = "updateUserError";

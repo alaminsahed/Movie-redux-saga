@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { createUserStart } from '../redux/action';
+import { createUserStart, updateUserStart } from '../redux/action';
 import { toast } from 'react-toastify';
 
 
@@ -17,12 +17,23 @@ const EditUser = () => {
         name: ' ',
         email: ' ',
     });
+    const [edit, setEdit] = useState(false);
 
     const { name, email } = formValue;
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    //const user = useSelector(state => state.user.users);
+    const user = useSelector(state => state.user.users);
+    const { id } = useParams()
+    useEffect(() => {
+        if (id) {
+
+            const singleValue = user.find((info) => info.id === Number(id));
+            console.log(user, id, singleValue);
+            setFormValue({ ...singleValue })
+            setEdit(true)
+        }
+    }, [id])
 
     const onChange = (e) => {
         setFormValue({ ...formValue, [e.target.name]: e.target.value });
@@ -31,9 +42,17 @@ const EditUser = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (name && email) {
-            dispatch(createUserStart(formValue));
-            toast.success('User created successfully');
-            navigate('/home');
+            if (!edit) {
+                dispatch(createUserStart(formValue));
+                toast.success('User created successfully');
+                navigate('/home');
+            }
+            else {
+                dispatch(updateUserStart(formValue))
+                setEdit(false)
+                navigate('/home');
+            }
+
         }
     }
 
@@ -42,7 +61,7 @@ const EditUser = () => {
             <MDBValidation className='row g-3' noValidate onSubmit={handleSubmit}>
                 <MDBValidationItem className='col-md-4'>
                     <MDBInput
-                        value={name}
+                        value={name || ""}
                         name='name'
                         onChange={onChange}
                         required
@@ -54,7 +73,7 @@ const EditUser = () => {
                 </MDBValidationItem>
                 <MDBValidationItem className='col-md-4'>
                     <MDBInput
-                        value={email}
+                        value={email || ""}
                         name='email'
                         onChange={onChange}
                         required

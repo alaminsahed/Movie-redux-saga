@@ -1,8 +1,8 @@
 import * as types from '../../redux/type';
 import { takeEvery, put, call, takeLatest, take, delay } from 'redux-saga/effects';
-import { userSuccess, userError, createUserSuccess, createUserError, deleteUserSuccess, deleteUserError } from '../../redux/action';
+import { userSuccess, userError, createUserSuccess, createUserError, deleteUserSuccess, deleteUserError, updateUserSuccess, updateUserError } from '../../redux/action';
 import { loadUserApi } from '../request/api';
-import { AddUserApi, DeleteUserApi } from '../request/api';
+import { AddUserApi, DeleteUserApi, UpdateUserApi } from '../request/api';
 
 
 export function* userSaga() {
@@ -25,10 +25,10 @@ export function* addUserSaga({ payload }) {
 }
 
 export function* deleteUserSaga(id) {
-    console.log("p", id);
+
     try {
         const response = yield call(DeleteUserApi, id);
-        console.log(response);
+
         if (response.status === 200) {
             yield delay(200);
             yield put(deleteUserSuccess(id));
@@ -38,6 +38,16 @@ export function* deleteUserSaga(id) {
         console.log("e", error);
         yield put(deleteUserError(error));
     }
+}
+
+export function* updateUserSaga({ payload }) {
+    try {
+        yield call(UpdateUserApi, payload.id, payload);
+        yield put(updateUserSuccess())
+    } catch (error) {
+        yield put(updateUserError(error))
+    }
+
 }
 
 export function* onLoadUser() {
@@ -54,4 +64,8 @@ export function* deleteUser() {
         yield call(deleteUserSaga, id)
 
     }
+}
+
+export function* updateUser() {
+    yield takeLatest(types.UpdateUserStart, updateUserSaga)
 }

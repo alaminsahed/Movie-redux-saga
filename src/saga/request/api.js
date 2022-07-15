@@ -16,3 +16,9 @@ export const DeleteUserApi = async (id) => {
     console.log("response", response);
     return response;
 }
+
+export const UpdateUserApi = async (id, info) => {
+    const response = await axios.put(`http://localhost:3004/users/${id}`, info);
+    console.log("response", response);
+    return response;
+}

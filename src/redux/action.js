@@ -62,3 +62,24 @@ export const deleteUserError = (error) => {
         payload: error,
     }
 }
+
+export const updateUserStart = (info) => {
+    return {
+        type: types.UpdateUserStart,
+        payload: info,
+    }
+}
+
+export const updateUserSuccess = (id) => {
+    return {
+        type: types.UpdateUserSuccess,
+
+    }
+}
+
+export const updateUserError = (error) => {
+    return {
+        type: types.UpdateUserError,
+        payload: error,
+    }
+}

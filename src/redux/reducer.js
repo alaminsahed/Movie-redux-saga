@@ -10,6 +10,7 @@ const userReducer = (state = initialState, action) => {
         case types.Loading:
         case types.CreateUserStart:
         case types.DeleteUserStart:
+        case types.UpdateUserStart:
             return {
                 ...state,
                 loading: true,
@@ -21,12 +22,13 @@ const userReducer = (state = initialState, action) => {
                 loading: false,
             }
         case types.CreateUserSuccess:
+        case types.UpdateUserSuccess:
             return {
                 ...state,
                 loading: false,
             }
         case types.DeleteUserSuccess:
-            console.log("r", action.payload);
+
             return {
                 ...state,
                 users: state.users.filter(user => user.id !== action.payload),
@@ -34,6 +36,7 @@ const userReducer = (state = initialState, action) => {
         case types.Error:
         case types.CreateUserError:
         case types.DeleteUserError:
+        case types.UpdateUserError:
             return {
                 ...state,
                 loading: false,

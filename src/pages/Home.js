@@ -4,6 +4,7 @@ import { loadingStart, deleteUserStart } from "../redux/action";
 import { MDBTable, MDBTableHead, MDBTableBody, MDBBtn } from 'mdb-react-ui-kit';
 import { MDBIcon, MDBTooltip } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const Home = () => {
@@ -17,8 +18,10 @@ const Home = () => {
     }, [dispatch]);
 
     const handleDelete = (id) => {
-        console.log(id);
-        dispatch(deleteUserStart(id));
+        if (window.confirm("Are you sure?")) {
+            dispatch(deleteUserStart(id))
+            toast.success("user deleted successfully")
+        }
         //navigator('/home');
     }
 
@@ -54,7 +57,7 @@ const Home = () => {
                                             </MDBTooltip>
                                         </MDBBtn>
                                         {" "}
-                                        <Link to={`/editUser/${item.id}`}>
+                                        <Link to={`/AddEditUser/${item.id}`}>
                                             <MDBTooltip title="Edit" tag="a">
                                                 <MDBIcon
                                                     fas
@@ -64,7 +67,7 @@ const Home = () => {
                                             </MDBTooltip>
                                         </Link>
                                         {" "}
-                                        <Link to={`/userInfo/${item.id}`}>
+                                        <Link to={`/AddEditUser/${item.id}`}>
                                             <MDBTooltip title="View" tag="a">
                                                 <MDBIcon
                                                     fas

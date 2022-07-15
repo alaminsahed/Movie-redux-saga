@@ -1,22 +1,19 @@
 {
   "users": [
     {
-      "id": 2,
-      "name": "Jane",
-      "email": "jane@gmail.com"
-    },
-    {
-      "id": 3
-    },
-    {
-      "name": " abc",
-      "email": "unishoprtech@gmail.com",
-      "id": 4
-    },
-    {
       "name": " bdsada",
       "email": "admin1@gmail.com",
       "id": 5
+    },
+    {
+      "name": "adda",
+      "email": "admin2@gmail.com",
+      "id": 6
+    },
+    {
+      "name": " abc",
+      "email": "dila@gmail.com",
+      "id": 7
     }
   ]
 }
